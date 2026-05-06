@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Standard</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Arial,sans-serif;min-height:100vh;color:#fff;
+  background:linear-gradient(135deg,#ff8fb1,#ffc7d8,#9dc8ff);overflow-x:hidden;
+}
+.spark{
+  position:fixed;width:7px;height:7px;border-radius:50%;
+  background:rgba(255,255,255,.95);bottom:-10px;animation:spark 4.8s linear infinite;z-index:0;
+}
+.wrap{max-width:1020px;margin:0 auto;padding:26px 16px 60px;position:relative;z-index:1}
+.panel{
+  background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28);
+  border-radius:30px;backdrop-filter:blur(12px);box-shadow:0 14px 36px rgba(0,0,0,.16);
+  padding:28px 18px 30px;
+}
+.hero{text-align:center;animation:slideDown .95s ease}
+.tag{
+  display:inline-block;padding:9px 18px;border-radius:999px;background:rgba(255,255,255,.24);
+  margin-bottom:18px;font-size:14px;color:#fff;text-shadow:0 3px 10px rgba(0,0,0,.22)
+}
+h1{font-size:clamp(2.2rem,6.4vw,3.3rem);margin-bottom:10px;text-shadow:0 10px 24px rgba(0,0,0,.24)}
+h2{font-size:clamp(1.1rem,3.5vw,1.55rem);font-weight:normal;margin-bottom:18px;color:#fff;text-shadow:0 8px 20px rgba(0,0,0,.24)}
+.main-photo{
+  width:min(245px,72vw);height:min(245px,72vw);object-fit:cover;border-radius:50%;
+  border:6px solid rgba(255,255,255,.82);box-shadow:0 14px 38px rgba(0,0,0,.18);
+  margin:0 auto 18px;display:block;animation:pulse 2.8s infinite;
+}
+.story-chip{
+  max-width:620px;margin:0 auto 16px;background:rgba(0,0,0,.12);
+  padding:14px 18px;border-radius:18px;line-height:1.8;font-size:16px;
+  color:#fff;text-shadow:0 3px 12px rgba(0,0,0,.22)
+}
+.memory-strip{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px auto 0;max-width:820px;
+}
+.memory-box{
+  background:rgba(255,255,255,.14);padding:14px;border-radius:18px;line-height:1.7;font-size:14px;
+  color:#fff;text-shadow:0 3px 10px rgba(0,0,0,.22)
+}
+.gallery{
+  margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:16px;
+}
+.gallery img{
+  width:100%;height:220px;object-fit:cover;border-radius:20px;
+  box-shadow:0 10px 26px rgba(0,0,0,.16);opacity:0;transform:translateY(18px) scale(.98);
+  animation:reveal .8s ease forwards;transition:transform .3s ease, filter .3s ease;
+}
+.gallery img:nth-child(1){animation-delay:.15s}
+.gallery img:nth-child(2){animation-delay:.35s}
+.gallery img:nth-child(3){animation-delay:.55s}
+.gallery img:nth-child(4){animation-delay:.75s}
+.gallery img:hover{transform:scale(1.04);filter:brightness(1.06)}
+.type-box,.secret{
+  max-width:760px;margin:18px auto 0;background:rgba(0,0,0,.12);
+  border-radius:22px;padding:18px 18px;line-height:1.9;color:#fff;
+  text-shadow:0 3px 12px rgba(0,0,0,.22)
+}
+.cursor{
+  display:inline-block;
+  margin-left:2px;
+  animation:blink .8s infinite;
+  font-weight:bold;
+}
+.actions{margin-top:22px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.btn{
+  border:none;background:#fff;color:#ff4a90;padding:14px 26px;border-radius:999px;
+  font-weight:bold;cursor:pointer;box-shadow:0 0 0 rgba(255,255,255,.4);animation:glow 1.8s infinite;
+}
+.secret{display:none}
+.progress-line{
+  max-width:420px;height:4px;background:rgba(255,255,255,.22);border-radius:999px;margin:18px auto 0;overflow:hidden
+}
+.progress-line span{
+  display:block;height:100%;width:0;background:#fff;animation:fillLine 2.2s ease forwards
+}
+audio{display:none}
+#intro{
+  position:fixed;inset:0;background:rgba(18,16,30,.86);
+  display:flex;align-items:center;justify-content:center;z-index:20;padding:14px
+}
+.intro-card{
+  background:#fff;color:#ff4f8f;padding:20px 18px;border-radius:22px;text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,.25);width:100%;max-width:320px
+}
+@keyframes slideDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+@keyframes reveal{to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 rgba(255,255,255,.25)}50%{box-shadow:0 0 18px rgba(255,255,255,.55)}}
+@keyframes spark{
+  0%{transform:translateY(0) scale(1);opacity:0}
+  20%{opacity:1}
+  100%{transform:translateY(-115vh) scale(1.8);opacity:0}
+}
+@keyframes fillLine{from{width:0}to{width:100%}}
+@keyframes blink{0%,50%{opacity:1}50.01%,100%{opacity:0}}
+@media (max-width:700px){
+  .memory-strip{grid-template-columns:1fr}
+}
+</style></head>
+<body>
+<div id="intro"><div class="intro-card"><h2>Birthday Standard ✨</h2><button class="btn" onclick="startExperience()">Tap to Start</button></div></div>
+
+<div class="spark" style="left:7%;animation-delay:0s"></div>
+<div class="spark" style="left:20%;animation-delay:.7s"></div>
+<div class="spark" style="left:38%;animation-delay:1.2s"></div>
+<div class="spark" style="left:56%;animation-delay:.2s"></div>
+<div class="spark" style="left:72%;animation-delay:1.6s"></div>
+<div class="spark" style="left:88%;animation-delay:.9s"></div>
+
+<div class="wrap"><section class="panel hero">
+<div class="tag">Birthday Standard Experience ✨</div>
+<h1>Happy Birthday, My Dear 🎉</h1>
+<h2>For Someone Truly Special 💖</h2>
+<img class="main-photo" src="images/photo1.jpg" alt="">
+
+<div class="story-chip">
+  A little digital birthday story made with your favorite memories, soft music, and a hidden surprise.
+</div>
+
+<div class="memory-strip">
+  <div class="memory-box">🎂 Warm wishes for a beautiful day.</div>
+  <div class="memory-box">📸 Favorite moments kept in one place.</div>
+  <div class="memory-box">💌 A hidden note waiting to be opened.</div>
+</div>
+
+<div class="progress-line"><span></span></div>
+
+<div class="gallery">
+  <img src="images/photo1.jpg" alt="">
+  <img src="images/photo2.jpg" alt="">
+  <img src="images/photo3.jpg" alt="">
+  <img src="images/photo4.jpg" alt="">
+</div>
+
+<div class="type-box"><span id="typewriter"></span><span class="cursor">|</span></div>
+
+<div class="actions">
+  <button class="btn" onclick="showSecret()">Reveal Surprise 🎁</button>
+</div>
+
+<div class="secret" id="secret">
+  I hope this birthday brings you peace, gentle happiness, and memories that stay with you long after today ends. 💕
+</div>
+
+<audio id="bgMusic" loop><source src="music1.mp3" type="audio/mpeg"></audio>
+</section></div>
+
+<script>
+const bgMusic = document.getElementById('bgMusic');
+
+const text = "This page is a small birthday gift made from memories, feelings, and wishes for your peace, success, and happiness. I hope your day feels as beautiful as your smile. 💗";
+
+let i = 0;
+let typingStarted = false;
+
+function typeText() {
+  const el = document.getElementById("typewriter");
+  if (!el) return;
+
+  if (i < text.length) {
+    el.textContent += text.charAt(i);
+    i++;
+    setTimeout(typeText, 40);
+  }
+}
+
+function startTypingWhenVisible() {
+  const box = document.querySelector(".type-box");
+  if (!box || typingStarted) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && !typingStarted) {
+        typingStarted = true;
+        typeText();
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.45 });
+
+  observer.observe(box);
+}
+
+function startExperience() {
+  const intro = document.getElementById("intro");
+  if (intro) intro.style.display = "none";
+
+  if (bgMusic) bgMusic.play().catch(() => {});
+  startTypingWhenVisible();
+}
+
+document.addEventListener("click", function firstTapPlay() {
+  if (bgMusic) bgMusic.play().catch(() => {});
+  document.removeEventListener("click", firstTapPlay);
+}, { once: true });
+
+window.addEventListener("load", () => {
+  if (bgMusic) bgMusic.play().catch(() => {});
+});
+
+function showSecret() {
+  document.getElementById("secret").style.display = "block";
+}
+</script></body></html>
